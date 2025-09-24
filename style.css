@@ -84,6 +84,19 @@
   --z-tooltip: 1060;
 }
 
+/* ===== LIGHT THEME (data-theme="light") ===== */
+[data-theme="light"] {
+  --bg-primary: #f7f8fa;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f1f3f5;
+  --bg-card: #ffffff;
+  --text-primary: #0b0c0e;
+  --text-secondary: #3f444a;
+  --text-muted: #6b7280;
+  --border-primary: #e5e7eb;
+  --border-secondary: #d1d5db;
+}
+
 /* ===== BASE STYLES ===== */
 html {
   scroll-behavior: smooth;
@@ -238,8 +251,29 @@ body {
   padding: 0 var(--spacing-lg);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   height: 80px;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  margin-left: var(--spacing-lg);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-primary);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: var(--transition-normal);
+}
+
+.theme-toggle:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-md);
 }
 
 .nav-logo .logo-text {
@@ -251,12 +285,27 @@ body {
   background-clip: text;
 }
 
+.logo-image {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-full);
+  display: inline-block;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), filter var(--transition-normal);
+}
+
+.logo-image:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 0 4px rgba(255, 76, 96, 0.15);
+  filter: saturate(1.2);
+}
+
 .nav-menu {
   display: flex;
   list-style: none;
   gap: var(--spacing-xl);
   margin: 0;
   padding: 0;
+  margin-left: auto;
 }
 
 .nav-link {
@@ -296,6 +345,7 @@ body {
   border: none;
   cursor: pointer;
   padding: var(--spacing-sm);
+  margin-left: auto;
 }
 
 .hamburger {
@@ -920,6 +970,57 @@ body {
   line-height: 1.6;
 }
 
+/* ===== FORM CONTROLS ===== */
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="password"],
+input[type="url"],
+select,
+textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-primary);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  transition: var(--transition-normal);
+  box-shadow: 0 0 0 0 rgba(255, 76, 96, 0.2);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-muted);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(255, 76, 96, 0.15);
+}
+
+input:disabled,
+select:disabled,
+textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Fancy select */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--text-muted) 50%),
+    linear-gradient(135deg, var(--text-muted) 50%, transparent 50%);
+  background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px);
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+
 /* ===== FOOTER ===== */
 .footer {
   background: var(--bg-tertiary);
@@ -948,6 +1049,19 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+.footer-logo-image {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), filter var(--transition-normal);
+}
+
+.footer-logo-image:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 0 4px rgba(255, 76, 96, 0.15);
+  filter: saturate(1.2);
 }
 
 .footer-logo .logo-name {
@@ -1044,8 +1158,9 @@ body {
 /* ===== CUSTOM CURSOR ===== */
 .cursor {
   position: fixed;
-  left: -50%;
-  top: -50%;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, -50%);
   width: 20px;
   height: 20px;
   background: var(--primary-color);
@@ -1058,8 +1173,9 @@ body {
 
 .cursor-follower {
   position: fixed;
-  left: -50%;
-  top: -50%;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, -50%);
   width: 40px;
   height: 40px;
   border: 2px solid var(--primary-color);
@@ -1310,10 +1426,31 @@ body {
 }
 
 /* ===== FOCUS STYLES ===== */
-*:focus {
+:focus-visible {
   outline: 2px solid var(--primary-color);
   outline-offset: 2px;
 }
+
+/* Remove outline when focus não é visível (ex.: clique do mouse) */
+.btn:focus:not(:focus-visible),
+.nav-link:focus:not(:focus-visible),
+.theme-toggle:focus:not(:focus-visible),
+.back-to-top:focus:not(:focus-visible),
+.project-links a:focus:not(:focus-visible),
+.botao-contato:focus:not(:focus-visible),
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Remove tap highlight no mobile */
+a, button, .btn, .nav-link, .project-links a, .theme-toggle, .back-to-top {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Firefox: remove inner border no click */
+button::-moz-focus-inner { border: 0; }
 
 /* ===== SELECTION STYLES ===== */
 ::selection {

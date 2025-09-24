@@ -17,6 +17,7 @@ class Portfolio {
     this.setupBackToTop();
     this.setupSmoothScrolling();
     this.setupNavbarScroll();
+    this.setupThemeSwitching();
   }
 
   // ===== EVENT LISTENERS =====
@@ -59,9 +60,7 @@ class Portfolio {
     document.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      
-      cursor.style.left = mouseX + 'px';
-      cursor.style.top = mouseY + 'px';
+      cursor.style.transform = `translate(${mouseX - 0}px, ${mouseY - 0}px) translate(-50%, -50%)`;
     });
 
     // Smooth follower animation
@@ -69,8 +68,7 @@ class Portfolio {
       followerX += (mouseX - followerX) * 0.1;
       followerY += (mouseY - followerY) * 0.1;
       
-      cursorFollower.style.left = followerX + 'px';
-      cursorFollower.style.top = followerY + 'px';
+      cursorFollower.style.transform = `translate(${followerX}px, ${followerY}px) translate(-50%, -50%)`;
       
       requestAnimationFrame(animateFollower);
     };
@@ -214,6 +212,31 @@ class Portfolio {
         navbar.style.backdropFilter = 'blur(20px)';
       }
     });
+  }
+
+  // ===== THEME SWITCHING =====
+  setupThemeSwitching() {
+    const themeToggle = document.querySelector('.theme-toggle');
+    const root = document.documentElement;
+    if (!themeToggle) return;
+
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    root.setAttribute('data-theme', savedTheme);
+    this.updateThemeIcon(themeToggle, savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme') || 'dark';
+      const next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      this.updateThemeIcon(themeToggle, next);
+    });
+  }
+
+  updateThemeIcon(button, theme) {
+    button.innerHTML = theme === 'light' 
+      ? '<i class="fas fa-sun" aria-hidden="true"></i>' 
+      : '<i class="fas fa-moon" aria-hidden="true"></i>';
   }
 
   // ===== INITIALIZE ANIMATIONS =====
