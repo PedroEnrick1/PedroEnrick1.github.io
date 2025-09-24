@@ -19,8 +19,9 @@ Vejo cada projeto como uma oportunidade de crescimento e aprendizado contínuo.
 ---
 
 ## 📂 Projetos
-Os arquivos dos projetos que desenvolvi estão disponíveis no meu perfil do **GitHub** ou no meu **PORTFOLIO**.  
-👉 [Acesse meu perfil aqui](https://github.com/PedroEnrick1)
+Os arquivos dos projetos que desenvolvi estão disponíveis no meu perfil do **GitHub** ou no meu **Portfólio**.  
+👉 [Acesse meu perfil no GitHub](https://github.com/PedroEnrick1)  
+👉 [Acesse meu Portfólio](https://pedroenrick1.github.io/)
 
 ---
 
